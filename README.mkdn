@@ -12,7 +12,7 @@ _Note: This works for me on Android 8.1.0 but I have not personally tested on ne
 
 1) Download the `reverb.apk` from the Releases page here: https://github.com/andyforceno/reverb/releases/download/v0.5-alpha/Reverb.apk, install it on your Android phone, and run it. In the app, set the default server to the IP address of your pulseaudio server (probably your desktop PC) using the settings toggle in the upper right
 
-2) On your Pulseaudio server, open /etc/pulse/default.pa in a text editor and add the following:
+2) On your Pulseaudio server, open `/etc/pulse/default.pa` in a text editor and add the following:
     `load-module module-native-protocol-tcp auth-anonymous=1 auth-ip-acl=127.0.0.1;<Put your Android phone's IP address here>`
     
 3) Restart pulseaudio via `systemctl` or `service`
