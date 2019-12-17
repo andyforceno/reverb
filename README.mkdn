@@ -2,6 +2,27 @@ Reverb aims to be a fully functional remote control
 for remote Pulseaudio servers (hint: think pavucontrol, 
 on your phone!) using libpulse itself.
 
+# Steps to control audio on Linux desktop from Android:
+
+_Note: This works for me on Android 8.1.0 but I have not personally tested on newer versions_
+
+1) Download the `reverb.apk` from the Releases page here on GitHub, install it on your Android phone, and run it. In the app, set the default server to the IP address of your pulseaudio server (probably your desktop PC) using the settings toggle in the upper right
+
+2) On your Pulseaudio server, open /etc/pulse/default.pa in a text editor and add the following:
+    `load-module module-native-protocol-tcp auth-anonymous=1 auth-ip-acl=127.0.0.1;<Put your Android phone's IP address here>`
+    
+3) Restart pulseaudio via `systemctl` or `service`
+
+4) _Optional_: To confirm module is loaded: execute `pacmd` on command line and then enter `list-modules` at the pulseaudio command prompt OR install/run command `paman` for a graphical interface
+
+5) Start Reverb on your phone again, it should connect to the default server you set previously.
+
+6) You should see volume controls in Reverb now! Check syslog for errors from pulseaudio if you do not
+
+This worked perfectly for me. Technically, it is not secure. You will see warnings in syslog about this. I am not overly concerned about this on my local network, but a more secure solution would be ideal, eventually. This would require that the Android application sends an authorization cookie file to the Pulseaudio server, which it currently does not do.
+
+The rest of the original Readme file follows below: 
+
 ![A Screenshot](http://hchapman.github.com/reverb/screen1.png)
 
 Build Requirements
